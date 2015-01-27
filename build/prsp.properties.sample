@@ -1,4 +1,0 @@
-# For which model to build
-MODEL=300
-# What to call this version
-PRSP_VER=2.0.0preview
