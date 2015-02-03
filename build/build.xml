@@ -34,120 +34,14 @@ History:
 	<property name="ADDONS" value="tmp/addons" />
 	<property name="SRC.CORE" value="../script/core" />
 	<property name="SRC.ADDONS" value="../script/addons" />
+	<property name="MODEL" value="505" />
 	
 	<!--======================================================================== 
 		Constants
 	========================================================================-->
-	<property name="FLASHABLE_300" value="true" />
 	<property name="FLASHABLE_505" value="true" />
-	<patternset id="addons_300_505">
-		<include name="**/*" />
-		<exclude name="ScrollbarAlphabet.js" />
-		<exclude name="StandardActions_x50.js" />
-		<exclude name="ViewerSettings_600.js" />
-		<exclude name="ViewerSettings_x50.js" />
-		<exclude name="BookManagement_x50.js" />
-		<exclude name="AuthorList.js" />
-		<exclude name="SaveNotepadData.js" />
-		<exclude name="TouchSettings_600.js" />
-		<exclude name="TouchSettings_x50.js" />
-		<exclude name="DictionaryOptions_x50.js" />
-		<exclude name="Extra_CSS_x50.js" />
-		<exclude name="Interface_x50.js" />		
-		<exclude name="Calendar" />
-		<exclude name="Calendar/**/*" />	
-		<exclude name="MerryActions.js" />	
-		<exclude name="Dictionary_x50.js" />
-		<exclude name="CrossWord" />
-		<exclude name="CrossWord/**/*" />
-	</patternset>
-	<patternset id="addons_600_x50">
-		<include name="**/*" />
-		<exclude name="MediaTag.js" />
-		<exclude name="MenuCaptions.js" />
-		<exclude name="DictionaryCL" />
-		<exclude name="DictionaryCL/**/*" />
-		<exclude name="DictionaryCL.js" />
-		<exclude name="StandardActions.js" />
-		<exclude name="TextEncoding.js" />
-		<exclude name="TextScale.js" />
-		<exclude name="ViewerSettings.js" />
-		<exclude name="core__keyboard.js" />
-		<exclude name="Calendar_nt" />
-		<exclude name="Calendar_nt/**/*" />		
-	</patternset>
-	<patternset id="addons_300">
-		<patternset refid="addons_300_505" />
-	</patternset>
 	<patternset id="addons_505">
-		<patternset refid="addons_300_505" />
-		<exclude name="MediaTag.js" />
-	</patternset>
-	<patternset id="addons_600">
-		<patternset refid="addons_600_x50" />
-		<exclude name="ViewerSettings_x50.js" />
-		<exclude name="BookManagement_x50.js" />
-		<exclude name="TouchSettings_x50.js" />
-		<exclude name="DictionaryOptions_x50.js" />
-		<exclude name="Interface_x50.js" />		
-	</patternset>
-	<patternset id="addons_350" >
-		<patternset refid="addons_600_x50" />
-		<exclude name="BookManagement.js" />
-		<exclude name="ViewerSettings_600.js" />
-		<exclude name="TouchSettings_600.js" />
-	</patternset>
-	<patternset id="addons_650">
-		<patternset refid="addons_600_x50" />
-		<exclude name="BookManagement.js" />
-		<exclude name="ViewerSettings_600.js" />
-		<exclude name="TouchSettings_600.js" />
-	</patternset>
-	<patternset id="addons_950">
-		<patternset refid="addons_600_x50" />
-		<exclude name="BookManagement.js" />
-		<exclude name="ViewerSettings_600.js" />
-		<exclude name="TouchSettings_600.js" />
-		<exclude name="Calc" />
-		<exclude name="Calc/**/*" />
-		<exclude name="Calc.js" />		
-		<exclude name="Calendar" />
-		<exclude name="Calendar/**/*" />
-		<exclude name="Calendar.js" />	
-		<exclude name="Chess" />
-		<exclude name="Chess/**/*" />
-		<exclude name="Chess.js" />	
-		<exclude name="Draughts" />
-		<exclude name="Draughts/**/*" />
-		<exclude name="Draughts.js" />	
-		<exclude name="FiveBalls" />
-		<exclude name="FiveBalls/**/*" />
-		<exclude name="FiveBalls.js" />			
-		<exclude name="FiveRow" />
-		<exclude name="FiveRow/**/*" />
-		<exclude name="FiveRow.js" />			
-		<exclude name="FreeCell" />
-		<exclude name="FreeCell/**/*" />
-		<exclude name="FreeCell.js" />			
-		<exclude name="IntFic" />
-		<exclude name="IntFic/**/*" />
-		<exclude name="IntFic.js" />	
-		<exclude name="Mahjong" />
-		<exclude name="Mahjong/**/*" />
-		<exclude name="Mahjong.js" />	
-		<exclude name="MineSweeper" />
-		<exclude name="MineSweeper/**/*" />
-		<exclude name="MineSweeper.js" />	
-		<exclude name="Solitaire" />
-		<exclude name="Solitaire/**/*" />
-		<exclude name="Solitaire.js" />	
-		<exclude name="Sudoku" />
-		<exclude name="Sudoku/**/*" />
-		<exclude name="Sudoku.js" />	
-		<exclude name="XOCubed" />
-		<exclude name="XOCubed/**/*" />
-		<exclude name="XOCubed.js" />	
-		<exclude name="MerryActions.js" />	
+		<include name="**/*" />
 	</patternset>
 	
 	<!--======================================================================== 
@@ -170,8 +64,8 @@ History:
 		<ant antfile="build_lang.xml" />
 		<antcall target="buildCore" />
 		<antcall target="buildAddons" />
-		<foreach list="${MODEL}" param="model" target="build" />
-		<foreach list="${MODEL}" param="model" target="buildInstaller" />
+		<antcall target="build"><param name="model" value="${MODEL}" /></antcall>
+		<antcall target="buildInstaller"><param name="model" value="${MODEL}" /></antcall>
 	</target>
 	
 	<target name="clear">
@@ -440,17 +334,6 @@ History:
 				</fileset>
 			</intersect>
 		</concat>
-		<!-- addons 4 folder -->
-		<concat destfile="${prsp.dir}/addons4.js" encoding="UTF-8">
-			<intersect>
-				<fileset dir="${SRC.ADDONS}4">
-					<patternset refid="addons_${model}" />
-				</fileset>
-				<fileset dir="${SRC.ADDONS}4">
-					<include name="*.js"/>
-				</fileset>
-			</intersect>
-		</concat>		
 
 		<echo>Optimizing addon files</echo>
 		<optimize.yui folder="${prsp.dir}"/>
